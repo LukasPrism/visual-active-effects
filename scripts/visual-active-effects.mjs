@@ -17,6 +17,7 @@ export class VisualActiveEffects extends Application {
     this.refresh = foundry.utils.debounce(this.render.bind(this), 100);
     this._initialSidebarWidth = ui.sidebar.element.outerWidth();
     this._playerClicks = game.settings.get(MODULE, PLAYER_CLICKS);
+    this.isHovering = false;
   }
 
   /** @override */
@@ -142,7 +143,9 @@ export class VisualActiveEffects extends Application {
 
   /** @override */
   async _render(force = false, options = {}) {
-    await super._render(force, options);
+    if (!this.isHovering) {
+      await super._render(force, options);
+    }
     if (ui.sidebar._collapsed) this.element.css("right", "50px");
     else this.element.css("right", `${this._initialSidebarWidth + 18}px`);
   }
@@ -155,6 +158,11 @@ export class VisualActiveEffects extends Application {
     }
     html[0].querySelectorAll(".collapsible-header").forEach(n => n.addEventListener("click", this.onCollapsibleClick.bind(this)));
     html[0].querySelectorAll("[data-action='custom-button']").forEach(n => n.addEventListener("click", this.onClickCustomButton.bind(this)));
+    html.find(".effect-info").on("mouseenter", () => (this.isHovering = true));
+    html.find(".effect-info").on("mouseleave", () => {
+    this.isHovering = false;
+    this.refresh(); // Call the refresh method after the user stops hovering
+    });
   }
 
   /**
