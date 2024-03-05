@@ -1,4 +1,4 @@
-# $${\color{red}Red}$$
+# ${\color{red}Red}$
 Visualize your active effects.
 
 While the module is enabled, all temporary effects (including status conditions) affecting your current token will be displayed in the top right.
