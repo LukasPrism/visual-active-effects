@@ -1,4 +1,4 @@
-# Visual Active Effects
+<style color=#95fec9># Visual Active Effects<style>
 Visualize your active effects.
 
 While the module is enabled, all temporary effects (including status conditions) affecting your current token will be displayed in the top right.
